@@ -30,11 +30,12 @@ UserSchema.pre('save', function(next){
 		bcrypt.genSalt(10, function(err, salt) {
 			bcrypt.hash(this.password, salt, function(err, hash) {
 				this.password = hash;
-				callback();
+				next();
 			});
 		});
-    } 
-    next();
+    } else {
+		next();
+	}
 });
 UserSchema.methods.verifyPassword = function(password, callback ) {
 	bcrypt.compare(password, this.password, function(err, isMatch) {
