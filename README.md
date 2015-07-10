@@ -5,7 +5,7 @@ The original motive for Angoose project is to do away with the dual model declar
 using modern Javascript framework such as Angular and node.js.  With both front end and backend using Javascript, Angoose allows the server side models and services
 to be used in the client side as if they reside in the client side.
 
-Angoose depends on following frameworks and assumes you have basic familarities with them:
+Angoose depends on following frameworks and assumes you have basic familiarities with them:
 
 * mongoose
 * express 
@@ -68,7 +68,7 @@ Restart node.js
 #### 5. You are ready to go!
 
 All the models defined in the `./models` folder will be auto-loaded and readily available for injection into your controller/service/directives etc, 
-just delcare them in the function argument list(We're using `SampleUser` as example here): 
+just declare them in the function argument list(We're using `SampleUser` as example here):
 
 	angular.module('myapp').controller('UserCtrl', function($scope, SampleUser) {
 	
@@ -134,7 +134,7 @@ reside in the browser! See diagram below for a depiction of the RMI process.
 
 Wah, you say, so I can use every NPM module out there in my front end? 
 
-Unfortunately, no. Server side modules will not be automatically become avaialbe to the client side. And really you only want to make those modules with database/filesystem or other 
+Unfortunately, no. Server side modules will not be automatically become available to the client side. And really you only want to make those modules with database/filesystem or other
 external IO operations available to the front end. For instance, Mongoose models or other database oriented service modules are good usa case of Angoose modules.
 
 Only modules registered with Angoose will be exported to client side(hence the term `angoose module`). To register a module:
@@ -142,13 +142,13 @@ Only modules registered with Angoose will be exported to client side(hence the t
 - For Mongoose models, just make sure you set your `module.exports` to the return value of `mongoose.model()` call. 
 - For other modules, call `angoose.module(name, func_or_object)` to register your service module. (angoose.service() is still supported and does same thing)
 
-And for either case, make sure Angoose knwo where to find your model files by using the `modelDir` configuration.
+And for either case, make sure Angoose know where to find your model files by using the `modelDir` configuration.
 
-There are a couple of exmaples under `angoose/models` directory for reference. 
+There are a couple of examples under `angoose/models` directory for reference.
 
 #### About Mongoose Models
 
-Note not all Mongoose model functionalities are exported yet. Following are a list of methods you can invoke on a Mongoose model from client side: 
+Note not all Mongoose model functionality are exported yet. Following are a list of methods you can invoke on a Mongoose model from client side:
 
 **Instance methods**
 
@@ -171,9 +171,9 @@ Note not all Mongoose model functionalities are exported yet. Following are a li
 **NOTE** 
 
 You must supply a callback for most of these Mongoose model methods. Mongoose `query` is NOT supported in the client side yet. On the server side, Mongoose allows you to call
-these methods without a callback function and it will return a `Qeury` instance to facilitate chaining. This may be changed in the future.  
+these methods without a callback function and it will return a `Query` instance to facilitate chaining. This may be changed in the future.
 
-In addition, there are two sugar methods designed for Angular. They similute the `$resource.get()` and `$resource.query()` in angular, in the way the method returns immediately with
+In addition, there are two sugar methods designed for Angular. They simulate the `$resource.get()` and `$resource.query()` in angular, in the way the method returns immediately with
 a reference to the empty object/list. This way you don't need to use callback.  The empty object/list will be automatically populated(and view updated accordingly) once server side returns. Both of methods takes parameters similar
 to the Mongoose find() method.
   
@@ -187,7 +187,7 @@ to the Mongoose find() method.
 Any methods you defined in the Mongoose schema(whether static or instance) will be treated as remotable method and automatically exported to client.  
 
 
-## 5. Writting a Remotable Method
+## 5. Writing a Remotable Method
 =================================
 
 A few things to note when write a remotable method(methods invokable from client side).
@@ -240,11 +240,11 @@ Method annotation is optional and all the methods you defined on your Model or S
 and return values accordingly. 
  
 Angoose relies on the function name to indicate which type of method it is.   In general the function name is not required when you define the methods on Mongoose schema
-or on a Service class because the method would be assigned to a property of the container object. Example for a Mongoose model shcema:
+or on a Service class because the method would be assigned to a property of the container object. Example for a Mongoose model schema:
  
      new Schema({
         methods: {
-            updateStatus: function(){ // notice function is annonymous
+            updateStatus: function(){ // notice function is anonymous
                 // body
             }
         }

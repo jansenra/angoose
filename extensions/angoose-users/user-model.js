@@ -1,5 +1,5 @@
 var angoose =require('../../lib/angoose');  //@TODO: should be able to use require("angoose") if the extension is individual module
-var crypto = require("crypto");
+var bcrypt = require('bcrypt');
 var mongoose = angoose.getMongoose();
 var options = {
     MODEL_NAME: 'AngooseUser',
@@ -25,11 +25,26 @@ var UserSchema = new mongoose.Schema({
         } , {collection: options.COLLECTION_NAME, label:'User'});
         
 UserSchema.pre('save', function(next){
-    if(this.isModified('password')){
-        //this.password = crypto.pbkdf2Sync(this.password)
+    if(this.isModified('password')) {
+		// create salt and encrypt password
+		bcrypt.genSalt(10, function(err, salt) {
+			bcrypt.hash(this.password, salt, function(err, hash) {
+				this.password = hash;
+				callback();
+			});
+		});
     } 
     next();
-});      
+});
+UserSchema.methods.verifyPassword = function(password, callback ) {
+	bcrypt.compare(password, this.password, function(err, isMatch) {
+		if (err) {
+			return callback(err);
+		}
+
+		callback(null, isMatch);
+	});
+};
 module.exports =  mongoose.model( options.MODEL_NAME, UserSchema);
 
 

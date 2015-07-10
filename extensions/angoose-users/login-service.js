@@ -1,6 +1,5 @@
  /** @module LoginService */
 var angoose =require('../../lib/angoose');  //@TODO: should be able to use require("angoose") if the extension is individual module
-var crypto = require("crypto");
 var UserModel = require("./user-model");
 var service = {};
 
@@ -22,14 +21,12 @@ service.signin = function(username, password, $callback){
                     return $callback("Username/password do not match.");   
                 }
                 logger().debug("User login: ", username, password && password.length, user.get("password.salt"))
-                
-                //var hashedPassword = require("crypto").pbkdf2Sync(password);
-                var hashedPassword = password;
-                
-                if(user.password !== hashedPassword){
-                    logger().debug("user ", username, "password did not match");
-                    return $callback("Username/password do not match.");
-                }
+
+		 		if (user.verifyPassword(password)) {
+					logger().debug("user ", username, "password did not match");
+					return $callback("Username/password do not match.");
+				}
+
                 // A login module must: 1) Implement a signin method 2) callback with an object with userId and roles properties
                 user.userId = user._id;
                 user.roles = user.roles; 
