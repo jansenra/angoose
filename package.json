@@ -41,7 +41,8 @@
     "hooks": "~0.3.2",
     "shimmer": "~1.0.0",
     "traverse": "~0.6.6",
-    "uglify-js": "*"
+    "uglify-js": "*",
+	"bcrypt": "^0.8.3"
   },
   "author": "tjworks",
   "license": "MIT",
