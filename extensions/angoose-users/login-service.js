@@ -22,7 +22,7 @@ service.signin = function(username, password, $callback){
                 }
                 logger().debug("User login: ", username, password && password.length, user.get("password.salt"))
 
-		 		if (user.verifyPassword(password)) {
+		 		if (!user.verifyPassword(password)) {
 					logger().debug("user ", username, "password did not match");
 					return $callback("Username/password do not match.");
 				}
