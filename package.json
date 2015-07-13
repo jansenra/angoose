@@ -1,6 +1,6 @@
 {
   "name": "angoose-bcrypt",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Angoose is a Remote Method Invocation module that comes with built-in mongoose/angular support. Now you can call server side module in browser just like you're in the server side!",
   "main": "lib/angoose",
   "scripts": {
@@ -46,7 +46,7 @@
     "bcrypt": "^0.8.3"
   },
   "author": "jansenra",
-  "license": "MIT",
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/jansenra/angoose-bcrypt/issues"
   },
